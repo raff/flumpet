@@ -71,9 +71,9 @@ class _MainPageState extends State<MainPage> {
     var keyb = RawKeyboard.instance;
 
     // 2nd row, last 3 keys on QWERTY keyboard
-    const valve3 = PhysicalKeyboardKey.backslash;
-    const valve2 = PhysicalKeyboardKey.bracketRight;
-    const valve1 = PhysicalKeyboardKey.bracketLeft;
+    const valve3 = PhysicalKeyboardKey.arrowRight;
+    const valve2 = PhysicalKeyboardKey.arrowDown;
+    const valve1 = PhysicalKeyboardKey.arrowLeft;
 
     // top row on QWERTY keyboard
     const h14 = PhysicalKeyboardKey.backspace;
