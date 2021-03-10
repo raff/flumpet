@@ -29,6 +29,22 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _current = 0;
+  String _note = "";
+
+  var _notes = [
+    "C",
+    "C#",
+    "D",
+    "D#",
+    "E",
+    "F",
+    "F#",
+    "G",
+    "G#",
+    "A",
+    "A#",
+    "B"
+  ];
 
   void _valve1(bool pressed) {
     if (pressed) {
@@ -54,15 +70,24 @@ class _MainPageState extends State<MainPage> {
     }
   }
 
-  void _addValue(int n) {
+  void _addValue(int v) {
     setState(() {
-      _current += n;
+      _current += v;
     });
   }
 
-  void _setValue(int n) {
+  void _setValue(int? v) {
     setState(() {
-      _current = n;
+      _current = v ?? 0;
+
+      if (v == null) {
+        _note = "";
+      } else {
+        var vv = v! - 1;
+        var o = (vv ~/ 12) + 4;
+        var n = _notes[vv % 12];
+        _note = "$n$o";
+      }
     });
   }
 
@@ -93,47 +118,47 @@ class _MainPageState extends State<MainPage> {
 
     keyb.keyEventHandler = (RawKeyEvent key) {
       if (keyb.physicalKeysPressed.isEmpty) {
-        print("nothing pressed");
-        _setValue(0);
+        //print("nothing pressed");
+        _setValue(null);
         return true;
       }
 
       var pressed = keyb.physicalKeysPressed;
       var vv = 0;
 
-      print("pressed $pressed");
+      //print("pressed $pressed");
 
-      // 1 7 12 16 19 22 24 26 28 30 31 33 34 35 36
+      // 1 8 13 17 20 23 25 26 29 31 32 34 35 36 37
       // C G  C  E  G Bb  C  D  E F#  G  A Bb  B  C
 
       if (pressed.contains(h14)) {
-        vv = 36;
+        vv = 37;
       } else if (pressed.contains(h13)) {
-        vv = 35;
+        vv = 36;
       } else if (pressed.contains(h12)) {
-        vv = 34;
+        vv = 35;
       } else if (pressed.contains(h11)) {
-        vv = 33;
+        vv = 34;
       } else if (pressed.contains(h10)) {
-        vv = 31;
+        vv = 32;
       } else if (pressed.contains(h9)) {
-        vv = 30;
+        vv = 31;
       } else if (pressed.contains(h8)) {
-        vv = 28;
+        vv = 29;
       } else if (pressed.contains(h7)) {
-        vv = 26;
+        vv = 27;
       } else if (pressed.contains(h6)) {
-        vv = 24;
+        vv = 25;
       } else if (pressed.contains(h5)) {
-        vv = 22;
+        vv = 23;
       } else if (pressed.contains(h4)) {
-        vv = 19;
+        vv = 20;
       } else if (pressed.contains(h3)) {
-        vv = 16;
+        vv = 17;
       } else if (pressed.contains(h2)) {
-        vv = 12;
+        vv = 13;
       } else if (pressed.contains(h1)) {
-        vv = 7;
+        vv = 8;
       } else {
         vv = 1;
       }
@@ -148,7 +173,8 @@ class _MainPageState extends State<MainPage> {
         vv -= 2;
       }
 
-      _setValue(vv + 5);
+      print(vv);
+      _setValue(vv);
       return true;
     };
 
@@ -167,7 +193,7 @@ class _MainPageState extends State<MainPage> {
                   'Current note:',
                 ),
                 Text(
-                  '$_current',
+                  '$_note', // $_current
                   style: Theme.of(context).textTheme.headline4,
                 ),
               ],
