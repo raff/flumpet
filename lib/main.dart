@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:just_audio/just_audio.dart';
 
 void main() {
   runApp(App());
@@ -45,6 +47,8 @@ class _MainPageState extends State<MainPage> {
     "A#",
     "B"
   ];
+
+  late AudioPlayer _player;
 
   void _valve1(bool pressed) {
     if (pressed) {
@@ -92,6 +96,33 @@ class _MainPageState extends State<MainPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _player = AudioPlayer();
+    _init();
+  }
+
+  Future<void> _init() async {
+    try {
+      await _player.setAudioSource(
+            AudioSource.uri(Uri.parse("asset:///audio/trumpet.wav")));
+      await _player.setLoopMode(LoopMode.all);
+    } catch (e) {
+      // catch load errors: 404, invalid url ...
+      print("An error occured $e");
+    }
+  }
+
+  Future<void> _stopPlay() async {
+    await _player.pause();
+  }
+
+  Future<void> _play(int n) async {
+    await _player.setClip(start: Duration(seconds: n * 2), end: Duration(seconds: n * 2 + 2));
+    await _player.play();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var keyb = RawKeyboard.instance;
 
@@ -120,6 +151,7 @@ class _MainPageState extends State<MainPage> {
       if (keyb.physicalKeysPressed.isEmpty) {
         //print("nothing pressed");
         _setValue(null);
+        _stopPlay();
         return true;
       }
 
@@ -175,6 +207,7 @@ class _MainPageState extends State<MainPage> {
 
       print(vv);
       _setValue(vv);
+      _play(vv + 5);
       return true;
     };
 
