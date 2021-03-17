@@ -33,7 +33,7 @@ class _MainPageState extends State<MainPage> {
   int _current = 0;
   String _note = "";
 
-  var _notes = [
+  var _noteNames = [
     "C",
     "C#",
     "D",
@@ -49,6 +49,7 @@ class _MainPageState extends State<MainPage> {
   ];
 
   late AudioPlayer _player;
+  late AudioSource _notes;
 
   void _valve1(bool pressed) {
     if (pressed) {
@@ -89,7 +90,7 @@ class _MainPageState extends State<MainPage> {
       } else {
         var vv = v! - 1;
         var o = (vv ~/ 12) + 4;
-        var n = _notes[vv % 12];
+        var n = _noteNames[vv % 12];
         _note = "$n$o";
       }
     });
@@ -103,10 +104,86 @@ class _MainPageState extends State<MainPage> {
   }
 
   Future<void> _init() async {
+    UriAudioSource all = AudioSource.uri(Uri.parse("asset:///audio/trumpet.wav"));
+
+    _notes = ConcatenatingAudioSource(
+      children: [
+        ClippingAudioSource(start: Duration(seconds: 0), end: Duration(seconds: 2), child: all),
+        ClippingAudioSource(start: Duration(seconds: 2), end: Duration(seconds: 4), child: all),
+        ClippingAudioSource(start: Duration(seconds: 4), end: Duration(seconds: 6), child: all),
+        ClippingAudioSource(start: Duration(seconds: 6), end: Duration(seconds: 8), child: all),
+        ClippingAudioSource(start: Duration(seconds: 8), end: Duration(seconds: 10), child: all),
+        ClippingAudioSource(start: Duration(seconds: 10), end: Duration(seconds: 12), child: all),
+        ClippingAudioSource(start: Duration(seconds: 12), end: Duration(seconds: 14), child: all),
+        ClippingAudioSource(start: Duration(seconds: 14), end: Duration(seconds: 16), child: all),
+        ClippingAudioSource(start: Duration(seconds: 16), end: Duration(seconds: 18), child: all),
+        ClippingAudioSource(start: Duration(seconds: 18), end: Duration(seconds: 20), child: all),
+        ClippingAudioSource(start: Duration(seconds: 20), end: Duration(seconds: 22), child: all),
+        ClippingAudioSource(start: Duration(seconds: 22), end: Duration(seconds: 24), child: all),
+        ClippingAudioSource(start: Duration(seconds: 24), end: Duration(seconds: 26), child: all),
+        ClippingAudioSource(start: Duration(seconds: 26), end: Duration(seconds: 28), child: all),
+        ClippingAudioSource(start: Duration(seconds: 28), end: Duration(seconds: 30), child: all),
+        ClippingAudioSource(start: Duration(seconds: 30), end: Duration(seconds: 32), child: all),
+        ClippingAudioSource(start: Duration(seconds: 32), end: Duration(seconds: 34), child: all),
+        ClippingAudioSource(start: Duration(seconds: 34), end: Duration(seconds: 36), child: all),
+        ClippingAudioSource(start: Duration(seconds: 36), end: Duration(seconds: 38), child: all),
+        ClippingAudioSource(start: Duration(seconds: 38), end: Duration(seconds: 40), child: all),
+        ClippingAudioSource(start: Duration(seconds: 40), end: Duration(seconds: 42), child: all),
+        ClippingAudioSource(start: Duration(seconds: 42), end: Duration(seconds: 44), child: all),
+        ClippingAudioSource(start: Duration(seconds: 44), end: Duration(seconds: 46), child: all),
+        ClippingAudioSource(start: Duration(seconds: 46), end: Duration(seconds: 48), child: all),
+        ClippingAudioSource(start: Duration(seconds: 48), end: Duration(seconds: 50), child: all),
+        ClippingAudioSource(start: Duration(seconds: 50), end: Duration(seconds: 52), child: all),
+        ClippingAudioSource(start: Duration(seconds: 52), end: Duration(seconds: 54), child: all),
+        ClippingAudioSource(start: Duration(seconds: 54), end: Duration(seconds: 56), child: all),
+        ClippingAudioSource(start: Duration(seconds: 56), end: Duration(seconds: 58), child: all),
+        ClippingAudioSource(start: Duration(seconds: 58), end: Duration(seconds: 60), child: all),
+        ClippingAudioSource(start: Duration(seconds: 60), end: Duration(seconds: 62), child: all),
+        ClippingAudioSource(start: Duration(seconds: 62), end: Duration(seconds: 64), child: all),
+        ClippingAudioSource(start: Duration(seconds: 64), end: Duration(seconds: 66), child: all),
+        ClippingAudioSource(start: Duration(seconds: 66), end: Duration(seconds: 68), child: all),
+        ClippingAudioSource(start: Duration(seconds: 68), end: Duration(seconds: 70), child: all),
+        ClippingAudioSource(start: Duration(seconds: 70), end: Duration(seconds: 72), child: all),
+        ClippingAudioSource(start: Duration(seconds: 72), end: Duration(seconds: 74), child: all),
+        ClippingAudioSource(start: Duration(seconds: 74), end: Duration(seconds: 76), child: all),
+        ClippingAudioSource(start: Duration(seconds: 76), end: Duration(seconds: 78), child: all),
+        ClippingAudioSource(start: Duration(seconds: 78), end: Duration(seconds: 80), child: all),
+        ClippingAudioSource(start: Duration(seconds: 80), end: Duration(seconds: 82), child: all),
+        ClippingAudioSource(start: Duration(seconds: 82), end: Duration(seconds: 84), child: all),
+        ClippingAudioSource(start: Duration(seconds: 84), end: Duration(seconds: 86), child: all),
+        ClippingAudioSource(start: Duration(seconds: 86), end: Duration(seconds: 88), child: all),
+        ClippingAudioSource(start: Duration(seconds: 88), end: Duration(seconds: 90), child: all),
+        ClippingAudioSource(start: Duration(seconds: 90), end: Duration(seconds: 92), child: all),
+        ClippingAudioSource(start: Duration(seconds: 92), end: Duration(seconds: 94), child: all),
+        ClippingAudioSource(start: Duration(seconds: 94), end: Duration(seconds: 96), child: all),
+        ClippingAudioSource(start: Duration(seconds: 96), end: Duration(seconds: 98), child: all),
+        ClippingAudioSource(start: Duration(seconds: 98), end: Duration(seconds: 100), child: all),
+        ClippingAudioSource(start: Duration(seconds: 100), end: Duration(seconds: 102), child: all),
+        ClippingAudioSource(start: Duration(seconds: 102), end: Duration(seconds: 104), child: all),
+        ClippingAudioSource(start: Duration(seconds: 104), end: Duration(seconds: 106), child: all),
+        ClippingAudioSource(start: Duration(seconds: 106), end: Duration(seconds: 108), child: all),
+        ClippingAudioSource(start: Duration(seconds: 108), end: Duration(seconds: 110), child: all),
+        ClippingAudioSource(start: Duration(seconds: 110), end: Duration(seconds: 112), child: all),
+        ClippingAudioSource(start: Duration(seconds: 112), end: Duration(seconds: 114), child: all),
+        ClippingAudioSource(start: Duration(seconds: 114), end: Duration(seconds: 116), child: all),
+        ClippingAudioSource(start: Duration(seconds: 116), end: Duration(seconds: 118), child: all),
+        ClippingAudioSource(start: Duration(seconds: 118), end: Duration(seconds: 120), child: all),
+        ClippingAudioSource(start: Duration(seconds: 120), end: Duration(seconds: 122), child: all),
+        ClippingAudioSource(start: Duration(seconds: 122), end: Duration(seconds: 124), child: all),
+        ClippingAudioSource(start: Duration(seconds: 124), end: Duration(seconds: 126), child: all),
+        ClippingAudioSource(start: Duration(seconds: 126), end: Duration(seconds: 128), child: all),
+        ClippingAudioSource(start: Duration(seconds: 128), end: Duration(seconds: 130), child: all),
+        ClippingAudioSource(start: Duration(seconds: 130), end: Duration(seconds: 132), child: all),
+        ClippingAudioSource(start: Duration(seconds: 132), end: Duration(seconds: 134), child: all),
+        ClippingAudioSource(start: Duration(seconds: 134), end: Duration(seconds: 136), child: all),
+        ClippingAudioSource(start: Duration(seconds: 136), end: Duration(seconds: 138), child: all),
+        ClippingAudioSource(start: Duration(seconds: 138), end: Duration(seconds: 140), child: all),
+      ],
+    );
+
     try {
-      await _player.setAudioSource(
-            AudioSource.uri(Uri.parse("asset:///audio/trumpet.wav")));
-      await _player.setLoopMode(LoopMode.all);
+      await _player.setAudioSource(_notes);
+      await _player.setLoopMode(LoopMode.one);
     } catch (e) {
       // catch load errors: 404, invalid url ...
       print("An error occured $e");
@@ -118,7 +195,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   Future<void> _play(int n) async {
-    await _player.setClip(start: Duration(seconds: n * 2), end: Duration(seconds: n * 2 + 2));
+    await _player.seek(Duration(milliseconds: 0), index: n);
     await _player.play();
   }
 
@@ -253,7 +330,7 @@ class _MainPageState extends State<MainPage> {
                         padding: EdgeInsets.all(2.0),
                         child: FloatingActionButton(
                           onPressed: () {
-                            _addValue(-5);
+                            _addValue(-6);
                           },
                           tooltip: 'Decrement',
                           child: Icon(Icons.remove),
